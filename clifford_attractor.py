@@ -26,8 +26,7 @@ Y = np.zeros(iterations)
 
 # starting point
 X[0], Y[0] = 1, 1
-
-# euler's method for tracking differential equations
+# map
 for i in range(iterations-1):
 	x_next, y_next = clifford_attractor(X[i], Y[i])
 	X[i+1] = x_next
