@@ -1,1 +1,2 @@
-# 2D_strange_attractors
+## 2D-strange-attractors
+
