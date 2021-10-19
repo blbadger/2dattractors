@@ -19,10 +19,7 @@ def clifford_attractor(x, y, a=-2.1, b=-0.8, c=1.2, d=1.6):
 		x: float, current x coordinate
 		y: float, current y coordinate
 	kwargs:
-		a: float
-		b: float
-		c: float
-		d: float
+		a, b, c, d: float, constant params
 
 	Returns:
 		x_next: float, next x coordinate

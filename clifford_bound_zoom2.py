@@ -28,7 +28,6 @@ def clifford_boundary(max_iterations, t, a=-1.4, b=1.7, c=1.0, d=0.7):
 	x_list = np.arange(-2/(2**(t/15)) + 9.829945, 2/(2**(t/15)) + 9.829945, (4/2**(t/15))/x_range)
 	y_list = np.arange(2/(2**(t/15)) + 7.8592, -2/(2**(t/15)) + 7.8592, -(4/2**(t/15))/y_range)
 	array = np.meshgrid(x_list[:3000], y_list[:3000])
-	print (array)
 
 	x2 = np.zeros(x_range)
 	y2 = np.zeros(y_range)
@@ -54,31 +53,30 @@ def clifford_boundary(max_iterations, t, a=-1.4, b=1.7, c=1.0, d=0.7):
 
 	return iterations_until_in_basin[0]
 
-# vector plot
-# plt.quiver(XX, YY, dx, dy, color_array, scale = 18, width=0.0018, alpha = 0.8)
+	
 # differential trajectory
-for t in range(376, 500):
+for t in range(, 500):
 
-	# # number of iterations
-	# iterations = 100000
-	# delta_t = 1.35
+	# number of iterations
+	iterations = 100000
+	delta_t = 1.35
 
-	# # initialization
-	# X = np.zeros(iterations)
-	# Y = np.zeros(iterations)
+	# initialization
+	X = np.zeros(iterations)
+	Y = np.zeros(iterations)
 
-	# # starting point
-	# (X[0], Y[0]) = (11.3, 8.5)
+	# starting point
+	(X[0], Y[0]) = (11.3, 8.5)
 
-	# # euler's method for tracking differential equations
-	# for i in range(iterations-1):
-	# 	x_next, y_next = clifford_attractor(X[i], Y[i])
-	# 	X[i+1] = X[i] + x_next * delta_t
-	# 	Y[i+1] = Y[i] + y_next * delta_t
+	# euler's method for tracking differential equations
+	for i in range(iterations-1):
+		x_next, y_next = clifford_attractor(X[i], Y[i])
+		X[i+1] = X[i] + x_next * delta_t
+		Y[i+1] = Y[i] + y_next * delta_t
 
-	# plt.plot(X, Y, ',', color='white', alpha = 0.2, markersize = 0.1)
+	plt.plot(X, Y, ',', color='white', alpha = 0.2, markersize = 0.1)
 	plt.imshow(clifford_boundary(30 + t//10, t), extent=[-2/(2**(t/15)) + 9.829945, 2/(2**(t/15)) + 9.829945, -2/(2**(t/15)) + 7.8592, 2/(2**(t/15)) + 7.8592], cmap='twilight_shifted', alpha=1)
 	plt.axis('off')
 	# plt.show()
-	plt.savefig('{}.png'.format(t), dpi=300, bbox_inches='tight')
+	plt.savefig('{}.png'.format(t), dpi=400, bbox_inches='tight')
 	plt.close()

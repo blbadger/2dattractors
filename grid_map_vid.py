@@ -7,13 +7,15 @@
 # import third party libraries
 import numpy as np
 import matplotlib.pyplot as plt 
-plt.style.use('dark_background')
+
 
 #Differential equation
 def grid_map(x, y, a=0.1, b=0.1):
 	x_n = a * np.cos(y)
 	y_n = b * np.sin(x)
+
 	return x_n, y_n
+
 
 for t in range(600):
 	# step parameters
@@ -32,13 +34,15 @@ for t in range(600):
 
 	#differential equation iterations
 	for i in range(steps):
+		
 		x_dot, y_dot = grid_map(X[i], Y[i])
 		x2_dot, y2_dot = grid_map(X2[i], Y2[i])
+
 		X[i + 1] = X[i] + x_dot * delta_t
 		Y[i + 1] = Y[i] + y_dot * delta_t
+
 		X2[i + 1] = X2[i] + x2_dot * delta_t
 		Y2[i + 1] = Y2[i] + y2_dot * delta_t
-
 
 	# x = np.arange(-30, 10, 0.6)
 	# y = np.arange(-20, 20, 0.6)
@@ -51,6 +55,7 @@ for t in range(600):
 	# color_array = (np.abs(dx) + np.abs(dy))
 
 	# plot figure
+	plt.style.use('dark_background')
 	plt.plot(X, Y, ',', color='red', alpha=0.3, markersize=0.001)
 	plt.plot(X2, Y2, ',', color='blue', alpha=0.3, markersize=0.01)
 

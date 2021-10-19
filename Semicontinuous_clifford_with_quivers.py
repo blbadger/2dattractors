@@ -19,6 +19,7 @@ def clifford_attractor(x, y, a=-1.4, b=1.7, c=1.0, d=0.7):
 	y_next = np.sin(b*x) + d*np.cos(b*y)
 	return x_next, y_next
 
+
 for t in range(1, 450):
 	# number of iterations
 	iterations = 500000

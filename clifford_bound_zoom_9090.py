@@ -8,7 +8,8 @@
 # import third party libraries
 import numpy as np 
 import matplotlib.pyplot as plt 
-plt.style.use('dark_background')
+import copy
+
 
 def clifford_attractor(x, y, a=-1.4, b=1.7, c=1.0, d=0.7):
 	'''Returns the change in arguments x and y according to 
@@ -19,28 +20,6 @@ def clifford_attractor(x, y, a=-1.4, b=1.7, c=1.0, d=0.7):
 	y_next = np.sin(b*x) + d*np.cos(b*y)
 	return x_next, y_next
 
-
-	# Vector plot initialization
-	# x = np.arange(10.7, 11.2, 1/80)
-	# y = np.arange(7.6, 8.4, 1/35)
-
-	# XX, YY = np.meshgrid(x, y)
-
-	# # calculate each vector's size and direction
-
-	# a = -1.4
-	# b = 1.7
-	# c = 1.0
-	# d = 0.7
-
-	# dx = np.sin(a*YY) + c*np.cos(a*XX)
-	# dy = np.sin(b*XX) + d*np.cos(b*YY)
-
-	# color_array = (np.abs(dx) + np.abs(dy))**0.7
-
-	# make and display figure
-	# plt.figure(figsize=(10, 10))
-import copy
 
 def clifford_boundary(max_iterations, t, a=-1.4, b=1.7, c=1.0, d=0.7):
 	x_range = 3000
@@ -74,35 +53,33 @@ def clifford_boundary(max_iterations, t, a=-1.4, b=1.7, c=1.0, d=0.7):
 
 	return iterations_until_in_basin[0]
 
-# vector plot
-# plt.quiver(XX, YY, dx, dy, color_array, scale = 18, width=0.0018, alpha = 0.8)
+
 # differential trajectory
-for t in range(0,300):
+for t in range(300):
 
-	# # number of iterations
-	# iterations = 100000
-	# delta_t = 1.35
+	# number of iterations
+	iterations = 100000
+	delta_t = 1.35
 
-	# # initialization
-	# X = np.zeros(iterations)
-	# Y = np.zeros(iterations)
+	# initialization
+	X = np.zeros(iterations)
+	Y = np.zeros(iterations)
 
-	# # starting point
-	# (X[0], Y[0]) = (11.3, 8.5)
+	# starting point
+	(X[0], Y[0]) = (11.3, 8.5)
 
-	# # euler's method for tracking differential equations
-	# for i in range(iterations-1):
-	# 	x_next, y_next = clifford_attractor(X[i], Y[i])
-	# 	X[i+1] = X[i] + x_next * delta_t
-	# 	Y[i+1] = Y[i] + y_next * delta_t
+	# euler's method for tracking differential equations
+	for i in range(iterations-1):
+		x_next, y_next = clifford_attractor(X[i], Y[i])
+		X[i+1] = X[i] + x_next * delta_t
+		Y[i+1] = Y[i] + y_next * delta_t
 
-	# plt.plot(X, Y, ',', color='white', alpha = 0.2, markersize = 0.1)
+	plt.style.use('dark_background')
+	plt.plot(X, Y, ',', color='white', alpha = 0.2, markersize = 0.1)
 	plt.imshow(clifford_boundary(30 + t//15, t), extent=[-4/(2**(t/15)) + 91.82168, 4/(2**(t/15)) + 91.82168, -4/(2**(t/15)) + 90.47914, 4/(2**(t/15)) + 90.47914], cmap='twilight', alpha=1)
 	plt.axis('off')
 	plt.show()
-	# plt.savefig('{}.png'.format(t), dpi=300, bbox_inches='tight')
+	# plt.savefig('{}.png'.format(t), dpi=400, bbox_inches='tight')
 	plt.close()
 	break
 	
-
-		# in_basin = np.abs(array[0] - 91.25) + np.abs(array[1] - 92.5) < 2.5

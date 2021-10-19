@@ -52,8 +52,7 @@ def henon_map(max_iterations, a, b, x_range, y_range):
 x_range = 2000
 y_range = 2000
 for t in range(300):
-	# There is a strange off-by-one error in making the diverging array (such that it is one larger than it should be)
-	# To address this, the original array is enlarged until the index error no longer occurs
+	# There is an off-by-one error when assigning x_list and y_list values
 	while True:
 		end = True
 		try: plt.imshow(henon_map(70 + t, a=0.2, b=-1.1, x_range=x_range, y_range = y_range), extent=[-40/(2**(t/15)) + 0.4564, 40/(2**(t/15))+ 0.4564, -40/(2**(t/15))- 0.50202,40/(2**(t/15))- 0.50202], cmap='twilight_shifted')

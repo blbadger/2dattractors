@@ -1,40 +1,61 @@
-'''
-!# Python3
-A program to display the Henon map.
-'''
+# henon_attractor.py
+# A program to display the Henon map.
 
 # import third-party libraries
 import numpy as np 
 import matplotlib.pyplot as plt 
-plt.style.use('dark_background')
 
 def henon_attractor(x, y, a=1.4, b=0.3):
-	'''Computes the next step in the Henon 
-	map for arguments x, y with kwargs a and
-	b as constants.
+	'''Computes the next step in the Henon map
+
+	Args:
+		x: float, current x value
+		y: float, current y value
+	kwargs:
+		a, b: float, constants
+
+	Returns:
+		x_next: float, current x value
+		y_next: flaot, current y value
 	'''
-	dx = 1 - a * x ** 2 + y
-	dy = b * x
-	return dx, dy
+
+	x_next = 1 - a * x ** 2 + y
+	y_next = b * x
+
+	return x_next, y_next
+
+
+def map_henon(steps):
+	"""
+	Produce the Henon map
+
+	Args:
+		steps: int, number of iterations
+
+	Returns:
+		None
+
+	"""
+
+	x_arr, y_arr = [], []
+
+	# starting point
+	x_arr.append(0.3), y_arr.append(0.3)
+
+	for i in range(steps):
+		x_next, y_next = henon_attractor(x_arr[-1], y_arr[-1])
+		x_arr.append(x_next)
+		y_arr.append(y_next)
+
+	# display plot
+	plt.style.use('dark_background')
+	plt.plot(x_arr, y_arr, '^', color='white', alpha = 0.4, markersize=0.1)
+	plt.axis('off')
+
+	plt.show()
+	plt.close()
+
 
 # number of iterations
 steps = 1000000
-
-X = np.zeros(steps + 1)
-Y = np.zeros(steps + 1)
-
-# starting point
-X[0], Y[0] = 0.3, 0.3
-
-for i in range(steps):
-	x_dot, y_dot = henon_attractor(X[i], Y[i])
-	X[i+1] = x_dot
-	Y[i+1] = y_dot
-
-# display plot
-plt.figure(figsize=(30, 30))
-plt.plot(X, Y, '^', color='white', alpha = 0.4, markersize=0.1)
-plt.axis('off')
-
-plt.show()
-plt.close()
+map_henon(steps)
