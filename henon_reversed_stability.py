@@ -4,11 +4,29 @@ plt.style.use('dark_background')
 import copy
 
 def henon_map(x, y, a, b):
+	"""
+	
+	"""
 	x_next = 1 - a*x**2 + y
 	y_next = b*x
+
 	return x_next, y_next
 
 def reverse_henon_stability(max_iterations, a, b, x_range, y_range):
+	"""
+	Find the reverse Henon map stability.
+
+	Args:
+		max_iterations: int, number of iterations of the henon equation
+		a: float, constant
+		b: float, constant
+		x_range: int, number of pixels on the x-axis
+		y_range: int, number of pixels on the y-axis
+
+	Returns:
+
+
+	"""
 	xl, xr = -2, 2
 	yl, yr = 1, -1
 
@@ -41,27 +59,23 @@ def reverse_henon_stability(max_iterations, a, b, x_range, y_range):
 
 	return iterations_until_divergence[0]
 
-x, y = 1, 1
-a, b = 1.4, 0.3
-ls = [[x, y]]
 
-steps = 100000
-X = [0 for i in range(steps)]
-Y = [0 for i in range(steps)]
+def assemble_plot():
+	"""
+	Assemble a plot of the Henon boundary and attractor for varying constants
 
-X[0], Y[0] = 0, 0 # initial point
+	Args:
+		None
 
-for i in range(steps-1):
-	if abs(X[i] + Y[i])**2 < 1000:
-		X[i+1] = henon_map(X[i], Y[i], a, b)[0]
-		Y[i+1] = henon_map(X[i], Y[i], a, b)[1]
+	Returns:
+		None (saves .png images)
 
+	"""
+	x, y = 1, 1
+	a, b = 1.4, 0.3
+	ls = [[x, y]]
 
-for t in range(0, 1):
-	a = 1.4
-	b = 0.3 + 0.0001*t
-
-	steps = 10000
+	steps = 100000
 	X = [0 for i in range(steps)]
 	Y = [0 for i in range(steps)]
 
@@ -72,10 +86,37 @@ for t in range(0, 1):
 			X[i+1] = henon_map(X[i], Y[i], a, b)[0]
 			Y[i+1] = henon_map(X[i], Y[i], a, b)[1]
 
-	plt.plot(X, Y, ',', color='white', alpha = 0.5, markersize = 0.2)
-	plt.imshow(reverse_henon_stability(200, a, b, x_range=2000, y_range=1400), extent=[-2, 2, -1, 1], aspect=2, cmap='inferno', alpha=1)
-	plt.axis('off')
-	plt.tick_params(labelsize=6)
-	plt.show()
-	# plt.savefig('henon_reversed_{0:03d}.png'.format(t), dpi=420, bbox_inches='tight', pad_inches=0)
-	plt.close()
+	for t in range(0, 1000):
+		a = 1.4
+		b = 0.3 + 0.0001*t
+
+		steps = 10000
+		X = [0 for i in range(steps)]
+		Y = [0 for i in range(steps)]
+
+		X[0], Y[0] = 0, 0 # initial point
+
+		for i in range(steps-1):
+			if abs(X[i] + Y[i])**2 < 1000:
+				X[i+1] = henon_map(X[i], Y[i], a, b)[0]
+				Y[i+1] = henon_map(X[i], Y[i], a, b)[1]
+
+		plt.plot(X, Y, ',', color='white', alpha = 0.5, markersize = 0.2)
+
+		plt.imshow(reverse_henon_stability(20, a, b, 
+											x_range=2000, 
+											y_range=1400), 
+											extent=[-2, 2, -1, 1], 
+											vmin=0,
+											vmax=20,
+											aspect=2, 
+											cmap='inferno', 
+											alpha=1)
+		plt.axis('off')
+		plt.tick_params(labelsize=6)
+		# plt.show()
+		plt.savefig('henon_reversed_{0:03d}.png'.format(t), dpi=450, bbox_inches='tight', pad_inches=0)
+		plt.close()
+
+
+assemble_plot()
