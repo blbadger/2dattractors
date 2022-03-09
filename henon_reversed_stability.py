@@ -27,8 +27,8 @@ def reverse_henon_stability(max_iterations, a, b, x_range, y_range):
 
 
 	"""
-	xl, xr = -2, 2
-	yl, yr = 1, -1
+	xl, xr = -3, 3
+	yl, yr = 0.8, -0.8
 
 	x_list = np.arange(xl, xr, (xr - xl)/x_range)
 	y_list = np.arange(yl, yr, -(yl - yr)/y_range)
@@ -87,8 +87,8 @@ def assemble_plot():
 			Y[i+1] = henon_map(X[i], Y[i], a, b)[1]
 
 	for t in range(0, 1000):
-		a = 1.4
-		b = 0.3 + 0.0001*t
+		a = 1 + t/2000
+		b = 0.3 
 
 		steps = 10000
 		X = [0 for i in range(steps)]
@@ -106,10 +106,10 @@ def assemble_plot():
 		plt.imshow(reverse_henon_stability(20, a, b, 
 											x_range=2000, 
 											y_range=1400), 
-											extent=[-2, 2, -1, 1], 
-											vmin=0,
-											vmax=20,
-											aspect=2, 
+											extent=[-3, 3, -0.8, 0.8], 
+											vmin=1,
+											vmax=14,
+											aspect=2.2,
 											cmap='inferno', 
 											alpha=1)
 		plt.axis('off')

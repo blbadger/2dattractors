@@ -61,7 +61,7 @@ def produce_grid(steps, delta_t):
 
 	# plot figure
 	plt.figure(figsize=(10,10))
-	plt.plot(x_arr, y_arr, '^', color='white', alpha=2, markersize=0.1)
+	plt.plot(x_arr, y_arr, '^', color='white', alpha=1, markersize=0.1)
 	plt.axis('on')
 	plt.show()
 	plt.close()
